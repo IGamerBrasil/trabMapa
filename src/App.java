@@ -4,25 +4,29 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class App {
 
     private static int height = 0;
     private static int width = 0;
-    private static Node primeiroPorto = new Node();
-    private static LinkedList<Node> caminho = new LinkedList<>();
-
+    private static ArrayList<Node> portos = new ArrayList<>();
+    private static List<Node> ports = new ArrayList<>();
+    private static ArrayList<Node> c = new ArrayList<>();
+    private static int total = 0;
     private static class Node{
         String dot_asterix;
         int visitado;
-        int[] coordenadas;
         Arestas arestas;
+        Node vimDeQuem;
+        public String getV(){return dot_asterix;}
     }
-
     private static class Arestas{
-        int combustivel;
         LinkedList<Node> vizinhos;
     }
 
@@ -33,10 +37,11 @@ public class App {
             throw new IllegalArgumentException("Vazia");
         }
         LinkedList<Node> ns = criaGrafo(mapa);
-
-        caminhoPortoBFS(ns, primeiroPorto);
+        ports = portos.stream().sorted(Comparator.comparing(Node::getV)).collect(Collectors.toList());
+        caminhaInicio(ns, ports.get(0));
         long endTime = System.currentTimeMillis();
         long executionTime = (endTime - startTime);
+        System.out.println("Total de combustivel gasto: "+ total);
         System.out.println("Execution time: " + executionTime + " miliseconds");
     }
 
@@ -58,20 +63,43 @@ public class App {
                         for(int c = 0; c < dados.length; c++){
                             Node n = new Node();
                             Arestas a = new Arestas();
-                            int[] coordenadas = new int[2];
-                            a.combustivel = 1;
                             n.dot_asterix = dados[c];
-                            coordenadas[0] = l-1;
-                            coordenadas[1] = c;
                             n.arestas = a;
-                            n.coordenadas = coordenadas;
                             mapa[l-1][c] = n;
-                            if(n.dot_asterix.equals("1")){
-                                primeiroPorto = n;
+                            switch(n.dot_asterix){
+                                case "1":
+                                    portos.add(n);
+                                    break;
+                                case "2":
+                                    portos.add(n);
+                                    break;
+                                case "3":
+                                    portos.add(n);
+                                    break;
+                                case "4":
+                                    portos.add(n);
+                                    break;
+                                case "5":
+                                    portos.add(n);
+                                    break;
+                                case "6":
+                                    portos.add(n);
+                                    break;
+                                case "7":
+                                    portos.add(n);
+                                    break;
+                                case "8":
+                                    portos.add(n);
+                                    break;
+                                case "9":
+                                    portos.add(n);
+                                    break;
+                                default:
+                                    break;
                             }
                         }
                     }
-                    l++;
+                    ++l;
                 }
         }
         catch (IOException x) {
@@ -82,89 +110,99 @@ public class App {
 
     public static LinkedList<Node> criaGrafo(Node[][] map){
         LinkedList<Node> m = new LinkedList<>();
-
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                Node n = map[i][j];
+                Node n = map[i][j]; //nodo atual         
                 if(!n.dot_asterix.equals("*")){
-                    LinkedList<Node> v = new LinkedList<>();
-                    n.arestas.vizinhos = v; 
+                    LinkedList<Node> v = new LinkedList<>(); //lista dos nodos vizinhos
+                    n.arestas.vizinhos = v;  //armazenar v nos vizinhos de n
                     if(i-1 >= 0){ 
-                        if(map[i-1][j] != null && !map[i-1][j].dot_asterix.equals("*")){
-                            v.add(map[i-1][j]);//norte
+                        Node norte = map[i-1][j];
+                        if(!norte.dot_asterix.equals("*")){
+                            v.add(norte);
                         }
                     }
                     if((j-1) >= 0){
-                        if(map[i][j-1] != null && !map[i][j-1].dot_asterix.equals("*")){
-                            v.add(map[i][j-1]);//oeste
+                        Node oeste = map[i][j-1];
+                        if(!oeste.dot_asterix.equals("*")){
+                            v.add(oeste);
                         }
                     }
-                    if((j+1) <= (width-1)){
-                        if(map[i][j+1] != null && !map[i][j+1].dot_asterix.equals("*")){
-                            v.add(map[i][j+1]);//leste
+                    if((j+1) < width){
+                        Node leste = map[i][j+1];
+                        if(!leste.dot_asterix.equals("*")){
+                            v.add(leste);
                         }
                     }
-                    if((i+1) <= (height-1)){
-                        if(map[i+1][j] != null && !map[i+1][j].dot_asterix.equals("*")){
-                            v.add(map[i+1][j]);//sul
+                    if((i+1) < height){
+                        Node sul = map[i+1][j];
+                        if(!sul.dot_asterix.equals("*")){
+                            v.add(sul);
                         }
                     }
-                    }
+                }
                 m.add(n);
             }
         }
-
         return m;
     }
 
-    public static void caminhoPortoBFS(LinkedList<Node> grafo, Node u){
-        for (Node node : grafo) {
-            node.visitado = 0;
+    public static void caminho(Node fim){
+        if(fim.vimDeQuem != null){
+            caminho(fim.vimDeQuem);
+            c.add(fim.vimDeQuem);
         }
-        u.visitado = 1;
+    }
+
+    public static void caminhaInicio(LinkedList<Node> g, Node inicio){
+            Node primeiroP = inicio;
+            Node no;
+            int r;
+            while(!ports.isEmpty()){
+                no = ports.remove(0);
+                r = caminha(g, no);
+                if(ports.isEmpty()){
+                    ports.add(primeiroP);
+                    caminha(g, no);
+                    ports.remove(0);
+                }
+                if(r == -1 && !ports.isEmpty()){
+                    ports.remove(0);
+                    caminha(g, no);
+                }
+            }
+            
+    }
+    public static int caminha(LinkedList<Node> g, Node inicio){
+        for (Node node : g) {
+            node.visitado = 0;
+            node.vimDeQuem = null;
+        }
+        inicio.visitado = 1;
         LinkedList<Node> l = new LinkedList<>();
-        l.add(u);
-        int i = 0;
+        l.add(inicio);
+        Node u = new Node();
         while(!l.isEmpty()){
             u = l.removeFirst();
-            ++i; 
-            LinkedList<Node> a = u.arestas.vizinhos;
-            for (Node node : a) { 
+            for (Node node : u.arestas.vizinhos) {
                 if(node.visitado == 0){
+                    node.vimDeQuem = u;
                     node.visitado = 1;
-                    l.addLast(node);     
-                    switch (node.dot_asterix) {
-                        case "2":
-                            //caminhoPortoBFS(grafo, node);
+                    l.add(node);
+                    if(!ports.isEmpty()){
+                        if(node.equals(ports.get(0))){
                             l.removeAll(l);
-                            break;
-                        case "3":
-                            caminhoPortoBFS(grafo, node);
-                            break;
-                        //case "4":
-                        //    caminhoPortoBFS(grafo, node);
-                        //    break;
-                        //case "5":
-                        //    caminhoPortoBFS(grafo, node);
-                        //    break;
-                        //case "6":
-                        //    caminhoPortoBFS(grafo, node);
-                        //    break;
-                        //case "7":
-                        //    caminhoPortoBFS(grafo, node);
-                        //    break;
-                        //case "8":
-                        //    caminhoPortoBFS(grafo, node);
-                        //    break;
-                        //case "9":
-                        //    l.removeAll(l);
-                        //    break;
-                        default:
-                            break;
+                            caminho(node);
+                            System.out.println(inicio.dot_asterix+" - "+node.dot_asterix+" --> "+c.size());
+                            total+=c.size();
+                            c.removeAll(c);
+                            return 0;
+                        }
                     }
                 }
             }
         }
+        return -1;
     }
 
     public static int getPortoIndex(LinkedList<Node> n){
@@ -178,5 +216,4 @@ public class App {
         }
         return index;
     }
-
 }

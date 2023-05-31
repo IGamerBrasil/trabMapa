@@ -1,0 +1,115 @@
+Caso01:
+
+    1 - 2 -->   31
+    2 - 3 -->   83 
+    3 - 4 -->   131
+    4 - 5 -->   74 
+    5 - 6 -->   118
+    6 - 7 -->   85
+    7 - 8 -->   172
+    8 - 9 -->   9
+    9 - 1 -->   129
+
+Total de combustivel gasto: 832
+Execution time: 66 miliseconds
+
+Caso02: 
+
+   1 - 2 -->274
+   2 - 3 -->400
+   3 - 4 -->356
+   4 - 5 -->144
+   5 - 6 -->63 
+   6 - 7 -->142
+   7 - 8 -->156
+   8 - 9 -->90
+   9 - 1 -->63
+
+Total de combustivel gasto: 1688
+Execution time: 117 miliseconds 
+
+Caso04:
+
+    1 - 2 -->   233
+    2 - 3 -->   486
+    3 - 4 -->   532
+    4 - 5 -->   350
+    5 - 7 -->   164
+    7 - 8 -->   427
+    8 - 9 -->   463
+    9 - 1 -->   299
+
+Total de combustivel gasto: 2954
+Execution time: 347 miliseconds
+
+Caso06:
+
+    1 - 3 --> 170
+    3 - 4 --> 342
+    4 - 5 --> 660
+    5 - 6 --> 371
+    6 - 7 --> 514
+    7 - 8 --> 722
+    8 - 9 --> 469
+    9 - 1 --> 580
+
+Total de combustivel gasto: 3828
+Execution time: 590 miliseconds
+
+Caso08: 
+
+    1 - 2 --> 800
+    2 - 3 --> 789
+    3 - 4 --> 380
+    4 - 5 --> 592
+    5 - 6 --> 853
+    6 - 7 --> 191
+    7 - 8 --> 900
+    8 - 9 --> 453
+    9 - 1 --> 938
+
+Total de combustivel gasto: 5896
+Execution time: 846 miliseconds
+
+Caso10:
+
+    1 - 2 --> 930
+    2 - 3 --> 1027
+    3 - 4 --> 798
+    4 - 5 --> 527
+    5 - 6 --> 833
+    6 - 7 --> 231
+    7 - 8 --> 478
+    8 - 9 --> 858
+    9 - 1 --> 662
+
+Total de combustivel gasto: 6344
+Execution time: 1233 miliseconds
+
+Caso15: 
+
+    1 - 2 --> 580
+    2 - 3 --> 1360
+    3 - 4 --> 1920
+    4 - 5 --> 695
+    5 - 6 --> 490
+    6 - 7 --> 1154
+    7 - 9 --> 717
+    9 - 1 --> 1196
+
+Total de combustivel gasto: 8112
+Execution time: 2541 miliseconds
+
+Caso20:
+
+    1 - 2 --> 146
+    2 - 4 --> 1762
+    4 - 5 --> 278
+    5 - 6 --> 762
+    6 - 7 --> 1780
+    7 - 8 --> 2143
+    8 - 9 --> 390
+    9 - 1 --> 2073
+
+Total de combustivel gasto: 9334
+Execution time: 3883 miliseconds
